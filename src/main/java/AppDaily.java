@@ -1,21 +1,19 @@
-package org.patriques;
-
-import com.google.common.collect.Lists;
+import org.patriques.AlphaVantageConnector;
+import org.patriques.TimeSeries;
 import org.patriques.output.AlphaVantageException;
+import org.patriques.output.timeseries.Daily;
 import org.patriques.output.timeseries.Weekly;
-import org.patriques.output.timeseries.data.GlobalQuoteData;
 import org.patriques.output.timeseries.data.StockData;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Scanner;
 
-public class App {
+public class AppDaily {
     public static void main(String[] args) {
         String apiKey = "50M3AP1K3Y";
         int timeout = 3000;
-        AlphaVantageConnector apiConnector = new AlphaVantageConnector("1S07MX2Y0CK5MUGD", timeout);
-        AlphaVantageConnector apiConnector1 = new AlphaVantageConnector("1S07MX2Y0CK5MUGD", timeout);
+        AlphaVantageConnector apiConnector = new AlphaVantageConnector(apiKey, timeout);
+       // AlphaVantageConnector apiConnector1 = new AlphaVantageConnector("1S07MX2Y0CK5MUGD", timeout);
         TimeSeries stockTimeSeries = new TimeSeries(apiConnector);
         //TimeSeries stockTimeSeries1 = new TimeSeries(apiConnector1);
         // Scanner scanner = new Scanner(System.in);
@@ -35,7 +33,7 @@ public class App {
             ticker = ibd100[i];
             try {
                 //IntraDay response = stockTimeSeries.intraDay("MSFT", Interval.ONE_MIN, OutputSize.COMPACT);
-                Weekly response = stockTimeSeries.weekly(ticker);
+                Daily response = stockTimeSeries.daily(ticker);
                 Map<String, String> metaData = response.getMetaData();
                 //System.out.println("Information: " + metaData.get("1. Information"));
                 //System.out.println("Stock: " + metaData.get("2. Symbol"));
@@ -43,7 +41,7 @@ public class App {
                 List<StockData> stockData = (response.getStockData());
                 //            List<StockData> stockData = Lists.reverse(response.getStockData());
                 int length = stockData.parallelStream().toArray().length;
-                final StockData stock = (StockData) stockData.parallelStream().toArray()[1];
+                final StockData stock = (StockData) stockData.parallelStream().toArray()[0];
 
   /*              stockData.forEach(stock1 -> {
 //                    System.out.println("date:   " + stock.getDateTime());
@@ -69,14 +67,21 @@ public class App {
                 }catch (InterruptedException ex){
 
                 }
+                if(i % 5 == 0){
+                    try {
+                        Thread.sleep(15000);
+                    }catch (InterruptedException ex){
 
+                    }
+                }
 
                 /*    });
 
                  */
 
             } catch (AlphaVantageException e) {
-                 --i;
+                //System.out.println("something went wrong i=="+ --i );
+                --i;
 
             }
         }
