@@ -1,0 +1,14 @@
+gradle.properties
+build/
+target/
+out/
+.DS_Store
+.gradle/
+.idea
+*.iml
+*.ipr
+*.iws
+build/
+.gradle/
+out/
+
