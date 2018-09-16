@@ -1,3 +1,4 @@
+import com.google.common.collect.Lists;
 import org.patriques.AlphaVantageConnector;
 import org.patriques.TimeSeries;
 import org.patriques.output.AlphaVantageException;
@@ -5,6 +6,8 @@ import org.patriques.output.timeseries.Daily;
 import org.patriques.output.timeseries.Weekly;
 import org.patriques.output.timeseries.data.StockData;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -24,9 +27,16 @@ public class AppDaily {
         // get their input as a String
         //String ticker = scanner.next();
 
-        int i =0;
+        int i =20;
 
-        String[] ibd100 = {"WWE", "GRUB", "ABMD", "PAYC", "VNOM", "VEEV", "FIVE", "LGND", "FTNT", "TTD", "NOW", "MTCH", "ALGN", "ILMN", "MEDP", "TREX", "HIIQ", "TEAM", "PANW", "NFLX", "ALRM", "SIVB", "CPRT", "WING", "CYBR", "LULU", "NANO", "MOMO", "PLNT", "PGTI", "IDTI", "EHC", "ADBE", "CTRL", "OEC", "ALSN", "MA", "AEO", "ODFL", "ULTA", "BRKS", "MPWR", "RP", "PRAH", "TRU", "UBNT", "KEM", "V", "DG", "JAZZ"};
+        String[] ibd100 = {"DDPT","XOM","GE","GS","HD","INTC","IBM","JNJ","JPM","MCD","MRK","MSFT"
+                ,"NKE","PFE","PG","TRV","UTX","UNH","VZ","V","WMT","BAC","JPM", "MMM","AXP","AAPL","BA","CAT","CVX","CSCO","KO","DIS",
+                 "WWE", "GRUB", "ABMD", "PAYC", "VNOM", "VEEV", "FIVE", "LGND", "FTNT", "TTD", "NOW", "MTCH", "ALGN", "ILMN", "MEDP",
+                 "TREX", "HIIQ", "TEAM", "PANW", "NFLX", "ALRM", "SIVB", "CPRT", "WING", "CYBR", "LULU", "NANO", "MOMO", "PLNT", "PGTI",
+                 "IDTI", "EHC", "ADBE", "CTRL", "OEC", "ALSN", "MA", "AEO", "ODFL", "ULTA", "BRKS", "MPWR", "RP", "PRAH", "TRU", "UBNT",
+                 "KEM", "V", "DG", "JAZZ"};
+
+        Arrays.sort(ibd100);
         String ticker;
         //for (String ticker : ibd100) {
         for(i = 0; i< ibd100.length; i++){
@@ -39,7 +49,7 @@ public class AppDaily {
                 //System.out.println("Stock: " + metaData.get("2. Symbol"));
 
                 List<StockData> stockData = (response.getStockData());
-                //            List<StockData> stockData = Lists.reverse(response.getStockData());
+                            //List<StockData> stockData = Lists.reverse(response.getStockData());
                 int length = stockData.parallelStream().toArray().length;
                 final StockData stock = (StockData) stockData.parallelStream().toArray()[0];
 

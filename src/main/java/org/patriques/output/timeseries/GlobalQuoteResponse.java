@@ -9,6 +9,7 @@ import org.patriques.output.timeseries.data.GlobalQuoteData;
 import org.patriques.output.timeseries.data.StockData;
 
 import java.lang.reflect.Type;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -77,25 +78,31 @@ public class GlobalQuoteResponse {
  */
       //      List<StockData> stocks = new ArrayList<>();
           //  try {
-//            final JsonElement jsonElement = rootObject.get(getStockDataKey());
-//                         String symbol = jsonElement.getAsJsonObject().get("01. symbol").toString();
-//                         String open = jsonElement.getAsJsonObject().get("02. open").toString();
-//          String high = jsonElement.getAsJsonObject().get("03. high").toString();
-//            String low = jsonElement.getAsJsonObject().get("04. low").toString();
-//             String closePrice = jsonElement.getAsJsonObject().get("05. price").toString();
-//             String volume = jsonElement.getAsJsonObject().get("06. volume").toString();
-//             String tradDay = jsonElement.getAsJsonObject().get("07. latest trading day").toString();
-//             String prevClose = jsonElement.getAsJsonObject().get("08. previous close").toString();
-//             String change = jsonElement.getAsJsonObject().get("09. change").toString();
-//             String changePercent = jsonElement.getAsJsonObject().get("10. change percent").toString();
+            final JsonElement jsonElement = rootObject.get(getStockDataKey());
+                         String symbol = jsonElement.getAsJsonObject().get("01. symbol").toString();
+                         Double open = Double.valueOf(jsonElement.getAsJsonObject().get("02. open").toString().replace("\"", ""));;
+            Double high = Double.valueOf(jsonElement.getAsJsonObject().get("03. high").toString().replace("\"", ""));
+            Double low = Double.valueOf(jsonElement.getAsJsonObject().get("04. low").toString().replace("\"", ""));
+            Double closePrice = Double.valueOf(jsonElement.getAsJsonObject().get("05. price").toString().replace("\"", ""));
+             String volume = jsonElement.getAsJsonObject().get("06. volume").toString();
+             String tradDay = jsonElement.getAsJsonObject().get("07. latest trading day").toString();
+             Double prevClose = Double.valueOf(jsonElement.getAsJsonObject().get("08. previous close").toString().replace("\"", ""));
+             String change = jsonElement.getAsJsonObject().get("09. change").toString();
+             String changePercent = jsonElement.getAsJsonObject().get("10. change percent").toString();
 
-
+            //                String date = stock.getDateTime().toString().substring(0, len - 6);
+                String stockDtls = symbol + "," + open + "," +
+                        high +
+                        "," + low + "," + closePrice + ","
+                        + (BigDecimal.valueOf(high).add(BigDecimal.valueOf(closePrice).add( BigDecimal.valueOf(low))).doubleValue()/3);
+//                        + stock.getPivot() + "," + date;
+            System.out.printf(stockDtls);
          //Map<String, String> metaData = GSON.fromJson(rootObject.get("Meta Data"), metaDataType);
 
-            final JsonElement jsonElement = rootObject.get(getStockDataKey());
-            System.out.println(jsonElement.getAsJsonObject().entrySet());
-            final Set<Map.Entry<String, JsonElement>> entries = jsonElement.getAsJsonObject().entrySet();
-            return null;
+//            final JsonElement jsonElement = rootObject.get(getStockDataKey());
+//            System.out.println(jsonElement.getAsJsonObject().entrySet());
+//            final Set<Map.Entry<String, JsonElement>> entries = jsonElement.getAsJsonObject().entrySet();
+           return null;
         }
     }
 

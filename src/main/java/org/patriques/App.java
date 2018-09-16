@@ -6,6 +6,7 @@ import org.patriques.output.timeseries.Weekly;
 import org.patriques.output.timeseries.data.GlobalQuoteData;
 import org.patriques.output.timeseries.data.StockData;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
@@ -14,9 +15,9 @@ public class App {
     public static void main(String[] args) {
         String apiKey = "50M3AP1K3Y";
         int timeout = 3000;
-        AlphaVantageConnector apiConnector = new AlphaVantageConnector("1S07MX2Y0CK5MUGD", timeout);
+        AlphaVantageConnector apiConnector = new AlphaVantageConnector(apiKey, timeout);
         AlphaVantageConnector apiConnector1 = new AlphaVantageConnector("1S07MX2Y0CK5MUGD", timeout);
-        TimeSeries stockTimeSeries = new TimeSeries(apiConnector);
+        TimeSeries stockTimeSeries = new TimeSeries(apiConnector1);
         //TimeSeries stockTimeSeries1 = new TimeSeries(apiConnector1);
         // Scanner scanner = new Scanner(System.in);
 
@@ -28,7 +29,14 @@ public class App {
 
         int i =0;
 
-        String[] ibd100 = {"WWE", "GRUB", "ABMD", "PAYC", "VNOM", "VEEV", "FIVE", "LGND", "FTNT", "TTD", "NOW", "MTCH", "ALGN", "ILMN", "MEDP", "TREX", "HIIQ", "TEAM", "PANW", "NFLX", "ALRM", "SIVB", "CPRT", "WING", "CYBR", "LULU", "NANO", "MOMO", "PLNT", "PGTI", "IDTI", "EHC", "ADBE", "CTRL", "OEC", "ALSN", "MA", "AEO", "ODFL", "ULTA", "BRKS", "MPWR", "RP", "PRAH", "TRU", "UBNT", "KEM", "V", "DG", "JAZZ"};
+        String[] ibd100 = {"DDPT","XOM","GE","GS","HD","INTC","IBM","JNJ","JPM","MCD","MRK","MSFT"
+                ,"NKE","PFE","PG","TRV","UTX","UNH","VZ","V","WMT","BAC","JPM", "MMM","AXP","AAPL","BA","CAT","CVX","CSCO","KO","DIS",
+                "WWE", "GRUB", "ABMD", "PAYC", "VNOM", "VEEV", "FIVE", "LGND", "FTNT", "TTD", "NOW", "MTCH", "ALGN", "ILMN", "MEDP",
+                "TREX", "HIIQ", "TEAM", "PANW", "NFLX", "ALRM", "SIVB", "CPRT", "WING", "CYBR", "LULU", "NANO", "MOMO", "PLNT", "PGTI",
+                "IDTI", "EHC", "ADBE", "CTRL", "OEC", "ALSN", "MA", "AEO", "ODFL", "ULTA", "BRKS", "MPWR", "RP", "PRAH", "TRU", "UBNT",
+                "KEM", "V", "DG", "JAZZ"};
+
+        Arrays.sort(ibd100);
         String ticker;
         //for (String ticker : ibd100) {
         for(i = 0; i< ibd100.length; i++){
@@ -53,6 +61,8 @@ public class App {
 //                    System.out.println("close:  " + stock.getClose());
 //
 //                    System.out.println("pivot: " + stock.getPivot());
+//"AAPL",225.75,226.84,222.522,223.84,224.40066666666667
+// AAPL,228.41,229.67,220.71,221.3,   223.89,2018-09-07
 */
                 int len = stock.getDateTime().toString().length();
                 String date = stock.getDateTime().toString().substring(0, len - 6);
